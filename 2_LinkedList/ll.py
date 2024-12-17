@@ -66,8 +66,53 @@ class LinkedList:
 
 
         
-    def insert(self, index: int, value:int): pass
+    def set(self, index: int, value:int): 
+        temp = self.get(index)
+        if temp:
+            temp.value = value
+            return True
+        return False
 
+    def insert(self, index, value): 
+        if index < 0 and index > self.length:
+            return False
+        if index == 0:
+            return self.prepend(value)
+        if index == self.length:
+            return self.append(value)
+        temp = self.get(index)
+        node = Node(value)
+        node.next = temp.next
+        temp.next = node
+        self.length += 1
+        return True
+    
+    def remove(self, index):
+        if index < 0 and index>=self.length:
+            return None
+        if index == 0:
+            return self.pop_first()
+        if index == self.length - 1:
+            return self.pop()
+        prev = self.get(index-1)
+        temp = prev.next
+        prev.next = temp.next
+        temp.next = None
+        self.length -= 1
+        return temp
+    def reverse(self):
+        curr = self.head
+        prev = None
+
+        while curr is not None:
+            curr_node = curr.next
+
+            curr.next = prev
+            prev = curr
+
+            curr = curr_node
+
+        return prev
 if __name__ == "__main__":
     node = Node(2)
     print(node.value)
