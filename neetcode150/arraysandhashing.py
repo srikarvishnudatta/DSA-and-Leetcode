@@ -32,6 +32,48 @@ def twoSum(nums: list[int], target: int) -> bool:
             return True
     return False
 
-def groupAnagrams():
+def groupAnagrams(strs: list[str]) -> list[list[str]]:
+    map = defaultdict(list) # {key: list[str]}
+    for str in strs:
+        arr = [0 for _ in range(0,27)]
+        for ch in str:
+            arr[ord(ch) - 'a'] += 1
+        map[tuple(arr)].append(str)
+    return map
+
+def topKFreqElements(nums: list[int], k: int) -> list[int]:
+    count = {}
+    freq = [[] for _ in range(0, len(nums) + 1)]
+    for num in nums:
+        count[num] = 1 + count.get(num, 0)
+    for k,v in count.items():
+        freq[v].append(k)
+    res = []
+    for i in range(len(nums) -1, 0, -1):
+        for num in freq[i]:
+            res.append(num)
+            if len(res)==k: return res
     
-    return
+def productOfArrayDiscludingSelf(nums: list[int]):
+    left = 1
+    right = 1
+    arr = [0 * len(nums)]
+    for i in range(len(nums)):
+        arr[i] = left
+        left *= nums[i]
+    for i in range(len(nums)-1, 0, -1):
+        arr[i] *= right
+        right *= nums[i]
+    return arr
+
+def longestCommonSubSeqeuence(nums: list[int]):
+    numSet = set(nums)
+    longest = 0
+
+    for num in nums:
+        if num - 1 not in numSet:
+            length = 1
+            while num + length in numSet:
+                length += 1
+            longest = max(longest, length)
+    return longest
