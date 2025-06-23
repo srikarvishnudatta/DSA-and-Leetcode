@@ -1,7 +1,7 @@
 from collections import defaultdict
 
 
-def group_anagram(nums, k):
+def top_k_frequency(nums, k):
     n = len(nums)
     bucket = [[] for _ in range(n + 1)]
     freq = defaultdict(int)
